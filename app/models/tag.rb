@@ -2,7 +2,8 @@ class Tag < ActiveRecord::Base
   attr_accessible :name, :name_transcription
   has_many :taggings, :dependent => :destroy, :class_name => 'ActsAsTaggableOn::Tagging'
   validates :name, :presence => true
-  after_save :save_taggings
+  validate :contain_space
+  after_save :save_taggings, :tag_delete
   after_destroy :save_taggings
 
   extend FriendlyId
@@ -41,6 +42,17 @@ class Tag < ActiveRecord::Base
 
   def tagged(taggable_type)
     self.taggings.where(:taggable_type => taggable_type.to_s).includes(:taggable).collect(&:taggable)
+  end
+
+  def contain_space
+    if self.name =~ /\s/ or name.index(I18n.t('tag.space'))
+      errors.add(:name, I18n.t('tag.contain_space'))
+    end
+  end
+
+  def tag_delete
+    tags = Tag.find(:all)
+    tags.each{ |tag| Tag.delete(tag) if tag.taggings.size == 0 }
   end
 end
 
