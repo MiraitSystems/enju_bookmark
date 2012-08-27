@@ -16,7 +16,7 @@ class BookmarkStatsController < ApplicationController
   # GET /bookmark_stats/1
   # GET /bookmark_stats/1.json
   def show
-    if params[:format] == 'csv'
+    if params[:format] == 'csv' or params[:format] == 'tsv'
       per_page = 65534
     else
       per_page = BookmarkStatHasManifestation.default_per_page
@@ -27,6 +27,7 @@ class BookmarkStatsController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @bookmark_stat }
       format.csv
+      format.tsv { send_data BookmarkStat.get_bookmark_stats_tsv(@bookmark_stat, @stats), :filename => configatron.bookmark_stat_stats_print_tsv.filename}
     end
   end
 
