@@ -21,7 +21,7 @@ class BookmarkStatsController < ApplicationController
     else
       per_page = BookmarkStatHasManifestation.default_per_page
     end
-    @stats = @bookmark_stat.bookmark_stat_has_manifestations.order('bookmarks_count DESC, manifestation_id').page(params[:page]).per(per_page)
+    @stats = @bookmark_stat.bookmark_stat_has_manifestations.order('bookmarks_count DESC, manifestation_id').page(params[:page]).page(per_page)
 
     respond_to do |format|
       format.html # show.html.erb
