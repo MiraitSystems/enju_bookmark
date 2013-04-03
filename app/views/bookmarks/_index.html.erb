@@ -5,7 +5,7 @@
 <div class="search_form">
   <%= form_for :bookmarks, :url => bookmarks_path, :html => {:method => 'get'} do -%>
     <p>
-      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= label_tag :search_form_top, t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
       <%= submit_tag t('page.search') -%>
     </p>
   <%- end -%>
@@ -27,7 +27,7 @@
     </td>
     <td><%= l(bookmark.created_at) -%></td>
     <td>
-      <%- if can? :destroy, bookmark -%>
+      <%- if can? :delete, bookmark -%>
         <%= link_to t('page.show'), bookmark_path(bookmark) -%>
         <%= link_to t('page.destroy'), bookmark_path(bookmark), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>

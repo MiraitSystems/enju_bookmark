@@ -43,8 +43,6 @@ module Dummy
   end
 end
 
-require 'enju_circulation'
-require 'enju_leaf'
 require 'enju_biblio'
 require 'enju_library'
-require 'enju_manifestation_viewer'
+require 'mobylette'
