@@ -51,4 +51,4 @@ ja:
     solr_query_format:
       field_detail:
         tag_format: "tag_sm:"
-        tag_ex: "tag_sm: 学生向け"
+        tag_ex: "tag_sm:学生向け"
